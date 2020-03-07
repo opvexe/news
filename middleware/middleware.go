@@ -8,7 +8,7 @@ import (
 )
 
 // jwt
-func MiddlewareJWT(ctx echo.HandlerFunc) echo.HandlerFunc {
+func JWT(ctx echo.HandlerFunc) echo.HandlerFunc {
 	return func(context echo.Context) error {
 		context.Response().Header().Set(echo.HeaderServer, "Echo/999")
 		tokenString := context.FormValue("token")

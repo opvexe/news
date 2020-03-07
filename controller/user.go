@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"fmt"
+	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	"shumin-project/admin-blog-web/model"
@@ -27,7 +27,7 @@ func LoginView(ctx echo.Context) error {
 
 //登录
 func Login(ctx echo.Context) error {
-	fmt.Println("111111111")
+	panic(errors.New("222"))
 	var login struct {
 		Num  string `json:"num"`  //用户名
 		Pass string `json:"pass"` //密码

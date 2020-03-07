@@ -5,7 +5,7 @@ import (
 	"shumin-project/admin-blog-web/controller"
 )
 
-func InitAdminRouter(app *echo.Echo) {
+func initAdminRouter(app *echo.Echo) {
 	admin := app.Group("/admin")
 	adminRouter(admin)
 }

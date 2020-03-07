@@ -27,10 +27,10 @@ func Run() {
 	app.Renderer = renderer //模板渲染
 
 	// 允许跨域访问
-	app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"*"},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
-	}))
+	//app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	//	AllowOrigins: []string{"*"},
+	//	AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	//}))
 
 	// 设置静态文件
 	app.Static("/static", "static")
@@ -38,9 +38,12 @@ func Run() {
 	app.GET("/", controller.Index)
 	app.GET("/login.html", controller.LoginView)
 
+	//中间件
+	app.Use(middleware.Recover())
+
 	// 设置api
-	InitApiRouter(app)
-	InitAdminRouter(app)
+	initApiRouter(app)
+	initAdminRouter(app)
 
 	if err := app.Start(":8099"); err != nil {
 		log.Error("启动服务失败:", err)
