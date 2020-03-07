@@ -16,7 +16,7 @@ func ArticleCount() int {
 }
 
 // 分页
-func ArticlePage(pi,ps int) ([]Article,error) {
+func ArticlePage(pi, ps int) ([]Article, error) {
 	q := make([]Article, 0)
 	rows, err := sqlinit.Db.Query(`select *from article order by id desc limit ?,?`, (pi-1)*ps, ps)
 	if err != nil {
@@ -24,7 +24,7 @@ func ArticlePage(pi,ps int) ([]Article,error) {
 	}
 	for rows.Next() {
 		var article Article
-		err := rows.Scan(&article.Id, &article.Cid, &article.Uid,&article.Title,&article.Origin,&article.Author,&article.Content,&article.Hits,&article.Ctime,&article.Utime)
+		err := rows.Scan(&article.Id, &article.Cid, &article.Uid, &article.Title, &article.Origin, &article.Author, &article.Content, &article.Hits, &article.Ctime, &article.Utime)
 		if err != nil {
 			return nil, err
 		}
@@ -36,7 +36,7 @@ func ArticlePage(pi,ps int) ([]Article,error) {
 //删除
 func ArticleDelete(id int64) error {
 	tx, _ := sqlinit.Db.Begin()
-	reslut, err := tx.Exec(`delete from article where id =?`,id)
+	reslut, err := tx.Exec(`delete from article where id =?`, id)
 	if err != nil {
 		_ = tx.Rollback()
 		return err
@@ -52,7 +52,7 @@ func ArticleDelete(id int64) error {
 //添加新闻
 func ArticleAdd(art *Article) error {
 	tx, _ := sqlinit.Db.Begin()
-	reslut, err := tx.Exec(`insert into article (title,author,cid,content,hits,ctime,utime,origin,uid) values (?,?,?,?,?,?,?,?,?)`,art.Title,art.Author,art.Cid,art.Content,art.Hits,art.Ctime,art.Origin,art.Uid)
+	reslut, err := tx.Exec(`insert into article (title,author,cid,content,hits,ctime,utime,origin,uid) values (?,?,?,?,?,?,?,?,?)`, art.Title, art.Author, art.Cid, art.Content, art.Hits, art.Ctime, art.Origin, art.Uid)
 	if err != nil {
 		_ = tx.Rollback()
 		return err

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	"shumin-project/admin-blog-web/model"
@@ -19,13 +20,14 @@ func LoginView(ctx echo.Context) error {
 	return ctx.Render(200, "login.html", nil)
 }
 
-//admin
-func AdmIndexView(ctx echo.Context) error {
-	return ctx.Render(200, "index.html", nil)
-}
+////admin
+//func AdmIndexView(ctx echo.Context) error {
+//	return ctx.Render(200, "index.html", nil)
+//}
 
 //登录
 func Login(ctx echo.Context) error {
+	fmt.Println("111111111")
 	var login struct {
 		Num  string `json:"num"`  //用户名
 		Pass string `json:"pass"` //密码
@@ -38,7 +40,6 @@ func Login(ctx echo.Context) error {
 	if err != nil {
 		return ctx.JSON(utils.ErrIpt("用户名错误", err.Error()))
 	}
-	login.Pass = "e2196ff70efaf691"
 	if user.Pass != login.Pass {
 		return ctx.JSON(utils.ErrIpt("用户密码输入错误"))
 	}
